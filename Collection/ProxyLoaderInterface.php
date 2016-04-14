@@ -2,9 +2,8 @@
 
 namespace Pmc\Collection;
 
-interface ProxyLoaderInterface {
-
-    function fetchAll();
-    function fetchById($id);
-
+interface ProxyLoaderInterface
+{
+    public function fetchAll();
+    public function fetchById($id);
 }

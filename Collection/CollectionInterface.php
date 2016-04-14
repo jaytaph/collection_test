@@ -2,11 +2,10 @@
 
 namespace Pmc\Collection;
 
-interface CollectionInterface extends \Countable {
-
-    function addItem($key = null, $item);
-    function getItems();
-    function hasItem($key);
-    function removeItem($key);
-
+interface CollectionInterface extends \Countable
+{
+    public function addItem($key = null, $item);
+    public function getItems();
+    public function hasItem($key);
+    public function removeItem($key);
 }

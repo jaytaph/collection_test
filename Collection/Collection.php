@@ -2,13 +2,14 @@
 
 namespace Pmc\Collection;
 
-class Collection implements \IteratorAggregate, CollectionInterface {
-
+class Collection implements \IteratorAggregate, CollectionInterface
+{
     /** @var array */
     protected $items = array();
 
     /**
-     * Returns traversable object of all items
+     * Returns traversable object of all items.
+     *
      * @return \ArrayIterator
      */
     public function getIterator()
@@ -17,12 +18,13 @@ class Collection implements \IteratorAggregate, CollectionInterface {
     }
 
     /**
-     * Adds an item to the collection
+     * Adds an item to the collection.
      *
-     * @param null $key Key to store the item under or null for numeric storage (like arrays)
+     * @param null  $key  Key to store the item under or null for numeric storage (like arrays)
      * @param mixed $item Item to store
      */
-    function addItem($key = null, $item) {
+    public function addItem($key = null, $item)
+    {
         if ($key == null) {
             $this->items[] = $item;
         } else {
@@ -31,11 +33,12 @@ class Collection implements \IteratorAggregate, CollectionInterface {
     }
 
     /**
-     * Returns array of all items
+     * Returns array of all items.
      *
      * @return array
      */
-    function getItems() {
+    public function getItems()
+    {
         return $this->items;
     }
 
@@ -43,33 +46,38 @@ class Collection implements \IteratorAggregate, CollectionInterface {
      * Returns item found on specific key or null when nothing found.
      *
      * @param mixed $key Key to search
+     *
      * @return array|null
      */
-    function getItem($key) {
+    public function getItem($key)
+    {
         if ($this->hasItem($key)) {
             return $this->items[$key];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Returns true when key is found in the collection
+     * Returns true when key is found in the collection.
      *
      * @param mixed $key Key to search
+     *
      * @return bool
      */
-    function hasItem($key) {
+    public function hasItem($key)
+    {
         return isset($this->items[$key]);
     }
 
     /**
-     * Removes item from list
+     * Removes item from list.
      *
      * @param mixed $key Key to search
      */
-    function removeItem($key) {
-        if (! $this->hasItem($key)) {
+    public function removeItem($key)
+    {
+        if (!$this->hasItem($key)) {
             return;
         }
 
@@ -77,7 +85,7 @@ class Collection implements \IteratorAggregate, CollectionInterface {
     }
 
     /**
-     * Returns number of items in collection
+     * Returns number of items in collection.
      *
      * @return int
      */

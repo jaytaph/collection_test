@@ -2,8 +2,8 @@
 
 namespace Pmc\Collection;
 
-class ActiveProxyCollection extends ActiveCollection implements ActiveCollectionInterface, ProxyCollectionInterface {
-
+class ProxyCollection extends ActiveCollection implements ActiveCollectionInterface, ProxyCollectionInterface
+{
     /** @var ProxyLoaderInterface The actual loader for items */
     protected $loader = null;
 
@@ -14,20 +14,21 @@ class ActiveProxyCollection extends ActiveCollection implements ActiveCollection
     protected $loaded = array();
 
     /**
-     * Sets the loader to load the actual items
+     * Sets the loader to load the actual items.
      *
      * @param ProxyLoaderInterface $loader
      */
-    function setLoader(ProxyLoaderInterface $loader) {
+    public function setLoader(ProxyLoaderInterface $loader)
+    {
         $this->loader = $loader;
     }
 
     /**
-     * Resets the proxy so all items are reloaded
+     * Resets the proxy so all items are reloaded.
      *
      * @param ProxyLoaderInterface $loader
      */
-    function resetItems()
+    public function resetItems()
     {
         $this->loaded = array();
         $this->allLoaded = false;
@@ -37,14 +38,14 @@ class ActiveProxyCollection extends ActiveCollection implements ActiveCollection
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return \ArrayIterator
      */
     public function getIterator()
     {
-        if (! $this->allLoaded) {
-            if (! $this->loader) {
+        if (!$this->allLoaded) {
+            if (!$this->loader) {
                 throw new \LogicException(sprintf('Proxy collections should call setLoader first'));
             }
             $this->loader->fetchAll();
@@ -54,13 +55,13 @@ class ActiveProxyCollection extends ActiveCollection implements ActiveCollection
         return parent::getIterator();
     }
 
-
     /**
      * @return array
      */
-    function getItems() {
-        if (! $this->allLoaded) {
-            if (! $this->loader) {
+    public function getItems()
+    {
+        if (!$this->allLoaded) {
+            if (!$this->loader) {
                 throw new \LogicException(sprintf('Proxy collections should call setLoader first'));
             }
             $this->loader->fetchAll();
@@ -72,26 +73,31 @@ class ActiveProxyCollection extends ActiveCollection implements ActiveCollection
 
     /**
      * @param mixed $key
+     *
      * @return mixed
      */
-    function getItem($key) {
-        if (! $this->allLoaded || isset($this->loaded[$key])) {
-            if (! $this->loader) {
+    public function getItem($key)
+    {
+        if (!$this->allLoaded || isset($this->loaded[$key])) {
+            if (!$this->loader) {
                 throw new \LogicException(sprintf('Proxy collections should call setLoader first'));
             }
             $this->loader->fetchById($key);
             $this->loaded[$key] = true;
         }
+
         return $this->items[$key];
     }
 
     /**
      * @param mixed $key
+     *
      * @return bool
      */
-    function hasItem($key) {
-        if (! $this->allLoaded || isset($this->loaded[$key])) {
-            if (! $this->loader) {
+    public function hasItem($key)
+    {
+        if (!$this->allLoaded || isset($this->loaded[$key])) {
+            if (!$this->loader) {
                 throw new \LogicException(sprintf('Proxy collections should call setLoader first'));
             }
             $this->loader->fetchById($key);
@@ -104,7 +110,7 @@ class ActiveProxyCollection extends ActiveCollection implements ActiveCollection
     /**
      * @param mixed $key
      */
-    function removeItem($key)
+    public function removeItem($key)
     {
         // removing an item means the collection is not completely loaded anymore
         if (isset($this->loaded[$key])) {
@@ -114,6 +120,4 @@ class ActiveProxyCollection extends ActiveCollection implements ActiveCollection
 
         parent::removeItem($key);
     }
-
-
 }
